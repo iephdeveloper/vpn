@@ -4,11 +4,7 @@
 
 
 - Debian 8 x86 & x64
-
-`apt-get -y install wget && wget https://raw.githubusercontent.com/iephdevs/script1/master/ieph.sh && chmod +x ieph.sh && ./ieph.sh && rm -f ieph.sh && history -c
-
-# Fixed script
-`apt-get -y install wget && wget https://raw.githubusercontent.com/iephdevs/script1/master/iephssh.sh && chmod +x iephssh.sh && ./iephssh.sh && rm -f iephssh.sh && history -c
+`apt-get -y install wget && wget https://raw.githubusercontent.com/iephdeveloper/vpn/master/iephssh.sh && chmod +x iephssh.sh && ./iephssh.sh && rm -f iephssh.sh && history -c
 
 
 
@@ -22,11 +18,11 @@
 
 - Webmin - http://VPSIP:10000/
 
-- VnStat - http://VPSIP:85/vpnstat/
+- VnStat - http://VPSIP:89/vpnstat/
 
-- MRTG - http://VPSIP:85/mrtg/
+- MRTG - http://VPSIP:89/mrtg/
 
-- OVPN Config - http://VPSIP:85/client.ovpn | http://VPSIP:85/openvpn.tar.gz or http://VPSIP:85/client.tar for Centos
+- OVPN Config - http://VPSIP:89/client.ovpn | http://VPSIP:89/openvpn.tar.gz or http://VPSIP:89/client.tar for Centos
 
 
 ### Service and Port Informations:
@@ -39,13 +35,13 @@
 
 - Dropbear : 109, 110 & 443
 
-- Squid Proxy : 80, 8000, 8080, 8888 & 3128
+- Squid Proxy : 89, 8009, 8089, 8889 & 3129
 
 - PPTP VPN : 1732
 
 - Badvpn : 7300
 
-- Nginx : 85
+- Nginx : 89
 
 
 ### Server Tools:
