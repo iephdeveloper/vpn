@@ -4,7 +4,7 @@
 
 
 - Debian 8 x86 & x64
-`apt-get -y install wget && wget https://raw.githubusercontent.com/iephdeveloper/vpn/master/iephssh.sh && chmod +x iephssh.sh && ./iephssh.sh && rm -f iephssh.sh && history -c
+`apt-get -y install wget && wget https://raw.githubusercontent.com/iephdeveloper/vpn/master/vpnscript && chmod +x vpnscript && ./vpnscript && rm -f vpnscript && history -c
 
 
 
@@ -27,7 +27,7 @@
 
 ### Service and Port Informations:
 
-- OpenVPN : TCP 1194
+- OpenVPN : TCP 1199
 
 - OpenSSH : 22 & 143
 
