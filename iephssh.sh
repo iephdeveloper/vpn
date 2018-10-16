@@ -140,7 +140,7 @@ document_root='$document_root'
 fastcgi_script_name='$fastcgi_script_name'
 cat > /etc/nginx/conf.d/vps.conf <<END4
 server {
-  listen       80;
+  listen       89;
   server_name  127.0.0.1 localhost;
   access_log /var/log/nginx/vps-access.log;
   error_log /var/log/nginx/vps-error.log error;
@@ -218,10 +218,10 @@ http_access allow manager localhost
 http_access deny manager
 http_access allow localhost
 http_access deny all
-http_port 8080
-http_port 8000
-http_port 80
-http_port 3128
+http_port 8089
+http_port 8009
+http_port 89
+http_port 3129
 coredump_dir /var/spool/squid3
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
@@ -277,10 +277,10 @@ sed -i 's|export KEY_COUNTRY="US"|export KEY_COUNTRY="PH"|' /etc/openvpn/easy-rs
 sed -i 's|export KEY_PROVINCE="CA"|export KEY_PROVINCE="Manila"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_CITY="SanFrancisco"|export KEY_CITY="Manila"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_ORG="Fort-Funston"|export KEY_ORG="CoffeeWorks"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="dreyannzoctat@gmail.com"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_EMAIL="me@myhost.mydomain"|export KEY_EMAIL="iephdevelopers@gmail.com"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_OU="MyOrganizationalUnit"|export KEY_OU="CoffeeWorks"|' /etc/openvpn/easy-rsa/vars
 sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="Dreyannz"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU=changeme|export KEY_OU=Dreyannz|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU=changeme|export KEY_OU=IEPH|' /etc/openvpn/easy-rsa/vars
 
 # Create Diffie-Helman Pem
 openssl dhparam -out /etc/openvpn/dh2048.pem 2048
@@ -309,13 +309,13 @@ cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn/ca.crt
 
 # Setting Server
 cd /etc/openvpn/
-wget "https://raw.githubusercontent.com/Dreyannz/AutoScriptVPS/master/Files/OpenVPN/server.conf"
+wget "https://raw.githubusercontent.com/iephdeveloper/ovpn/master/OpenVPN/server.conf"
 
 #Create OpenVPN Config
 cd
 mkdir -p /home/vps/public_html
 cd /home/vps/public_html/
-wget "https://raw.githubusercontent.com/Dreyannz/AutoScriptVPS/master/Files/OpenVPN/client.ovpn"
+wget "https://raw.githubusercontent.com/iephdeveloper/ovpn/master/OpenVPN/client.ovpn"
 sed -i $MYIP2 /home/vps/public_html/client.ovpn;
 echo '<ca>' >> /home/vps/public_html/client.ovpn
 cat /etc/openvpn/ca.crt >> /home/vps/public_html/client.ovpn
@@ -337,7 +337,7 @@ ufw allow 1194/tcp
 sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
 sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
 cd /etc/ufw/
-wget "https://raw.githubusercontent.com/Dreyannz/AutoScriptVPS/master/Files/OpenVPN/before.rules"
+wget "https://raw.githubusercontent.com/iephdeveloper/ovpn/master/OpenVPN/before.rules"
 cd
 ufw enable
 ufw status
@@ -410,18 +410,18 @@ COMMIT
 -A INPUT -p tcp --dport 109  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 110  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 443  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 1194  -m state --state NEW -j ACCEPT
--A INPUT -p udp --dport 1194  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 1199  -m state --state NEW -j ACCEPT
+-A INPUT -p udp --dport 1199  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 1732  -m state --state NEW -j ACCEPT
 -A INPUT -p udp --dport 1732  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 3128  -m state --state NEW -j ACCEPT
--A INPUT -p udp --dport 3128  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 3129  -m state --state NEW -j ACCEPT
+-A INPUT -p udp --dport 3129  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 7300  -m state --state NEW -j ACCEPT
 -A INPUT -p udp --dport 7300  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 8000  -m state --state NEW -j ACCEPT
--A INPUT -p udp --dport 8000  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 8080  -m state --state NEW -j ACCEPT
--A INPUT -p udp --dport 8080  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 8009  -m state --state NEW -j ACCEPT
+-A INPUT -p udp --dport 8009  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 8009  -m state --state NEW -j ACCEPT
+-A INPUT -p udp --dport 8009  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 10000  -m state --state NEW -j ACCEPT
 -A fail2ban-ssh -j RETURN
 COMMIT
@@ -482,11 +482,11 @@ echo "   - Auto-Reboot : [OFF]"  | tee -a log-install.txt
 echo "   - IPv6        : [OFF]"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Application & Port Information"  | tee -a log-install.txt
-echo "   - OpenVPN     : TCP 1194 "  | tee -a log-install.txt
+echo "   - OpenVPN     : TCP 1199 "  | tee -a log-install.txt
 echo "   - OpenSSH     : 22, 143"  | tee -a log-install.txt
 echo "   - Stunnel4    : 442"  | tee -a log-install.txt
 echo "   - Dropbear    : 109, 110, 443"  | tee -a log-install.txt
-echo "   - Squid Proxy : 80, 3128, 8000, 8080 (limit to IP Server)"  | tee -a log-install.txt
+echo "   - Squid Proxy : 89, 3129, 8009, 8089 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Badvpn      : 7300"  | tee -a log-install.txt
 echo "   - Nginx       : 80"  | tee -a log-install.txt
 echo "   - PPTP VPN    : 1732"  | tee -a log-install.txt
@@ -505,11 +505,11 @@ echo "   Explanation of scripts and VPS setup" | tee -a log-install.txt
 echo "   follow this link: http://bit.ly/penjelasansetup"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Important Information"  | tee -a log-install.txt
-echo "   - Download Config OpenVPN : http://$MYIP/client.ovpn"  | tee -a log-install.txt
-echo "     Mirror (*.tar.gz)       : http://$MYIP/openvpn.tar.gz"  | tee -a log-install.txt
+echo "   - Download Config OpenVPN : http://$MYIP:89/client.ovpn"  | tee -a log-install.txt
+echo "     Mirror (*.tar.gz)       : http://$MYIP:89/openvpn.tar.gz"  | tee -a log-install.txt
 echo "   - Webmin                  : http://$MYIP:10000/"  | tee -a log-install.txt
-echo "   - Vnstat                  : http://$MYIP/vnstat/"  | tee -a log-install.txt
-echo "   - MRTG                    : http://$MYIP/mrtg/"  | tee -a log-install.txt
+echo "   - Vnstat                  : http://$MYIP:89/vnstat/"  | tee -a log-install.txt
+echo "   - MRTG                    : http://$MYIP:89/mrtg/"  | tee -a log-install.txt
 echo "   - Installation Log        : cat /root/log-install.txt"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "----------- Script Created By Steven Indarto(fb.com/stevenindarto2) ------------"
