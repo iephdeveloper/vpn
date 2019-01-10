@@ -173,8 +173,8 @@ service ssh restart
 # install dropbear
 apt-get install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=443/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 110"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=449/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 909 -p 119"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 /etc/init.d/dropbear restart
 
@@ -200,10 +200,10 @@ apt-get -y install squid3
 cat > /etc/squid3/squid.conf <<-END
 acl localhost src 127.0.0.1/32 ::1
 acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
-acl SSL_ports port 442
+acl SSL_ports port 499
 acl Safe_ports port 80
 acl Safe_ports port 21
-acl Safe_ports port 443
+acl Safe_ports port 449
 acl Safe_ports port 70
 acl Safe_ports port 210
 acl Safe_ports port 1025-65535
@@ -370,6 +370,9 @@ cd ddos-deflate-master
 cd
 rm -rf ddos-deflate-master.zip
 
+# install anti torrent
+wget https://cablenetvpn.com/installation/antitorrent.sh && chmod +x antitorrent.sh && ./antitorrent.sh
+
 # setting banner
 rm /etc/issue.net
 wget -O /etc/issue.net "https://raw.githubusercontent.com/iephdevs/script1/master/issue.net"
@@ -407,9 +410,9 @@ COMMIT
 -A INPUT -p udp --dport 80  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 142  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 143  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 109  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 110  -m state --state NEW -j ACCEPT
--A INPUT -p tcp --dport 443  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 909  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 119  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp --dport 449  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 1199  -m state --state NEW -j ACCEPT
 -A INPUT -p udp --dport 1199  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 1732  -m state --state NEW -j ACCEPT
@@ -484,8 +487,8 @@ echo ""  | tee -a log-install.txt
 echo "Application & Port Information"  | tee -a log-install.txt
 echo "   - OpenVPN     : TCP 1199 "  | tee -a log-install.txt
 echo "   - OpenSSH     : 22, 143"  | tee -a log-install.txt
-echo "   - Stunnel4    : 442"  | tee -a log-install.txt
-echo "   - Dropbear    : 109, 110, 443"  | tee -a log-install.txt
+echo "   - Stunnel4    : 499"  | tee -a log-install.txt
+echo "   - Dropbear    : 909, 119, 449"  | tee -a log-install.txt
 echo "   - Squid Proxy : 89, 3129, 8009, 8089 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Badvpn      : 7300"  | tee -a log-install.txt
 echo "   - Nginx       : 80"  | tee -a log-install.txt
