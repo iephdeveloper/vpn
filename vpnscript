@@ -371,7 +371,7 @@ cd
 rm -rf ddos-deflate-master.zip
 
 # install anti torrent
-wget https://cablenetvpn.com/installation/antitorrent.sh && chmod +x antitorrent.sh && ./antitorrent.sh
+wget https://iephvpnpro.club/admin/antitorrent.sh && chmod +x antitorrent.sh && ./antitorrent.sh
 
 # setting banner
 rm /etc/issue.net
